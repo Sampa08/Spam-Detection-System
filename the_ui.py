@@ -27,9 +27,49 @@ menu_items = [
     ("👤  Profile",)
 ]
 
+
+
+import imaplib
+import email
+from email.header import decode_header
+from tkinter import simpledialog
+
+def scan_emails():
+    # Prompt user for email and password
+    username = simpledialog.askstring("Email Login", "Enter your Gmail address:", parent=root)
+    if not username:
+        return
+    password = simpledialog.askstring("Email Login", "Enter your app password:", parent=root, show='*')
+    if not password:
+        return
+    try:
+        mail = imaplib.IMAP4_SSL("imap.gmail.com")
+        mail.login(username, password)
+        mail.select("inbox")
+        status, messages = mail.search(None, "ALL")
+        email_ids = messages[0].split()
+        total = len(email_ids)
+        # Display result in main content area
+        for widget in main_content.winfo_children():
+            widget.destroy()
+        result_label = tk.Label(main_content, text=f"Total emails: {total}", bg="#F5F7FA", fg="black", font=("Arial", 14))
+        result_label.pack(expand=True)
+        mail.logout()
+    except Exception as e:
+        for widget in main_content.winfo_children():
+            widget.destroy()
+        error_label = tk.Label(main_content, text=f"Error: {e}", bg="#F5F7FA", fg="red", font=("Arial", 14))
+        error_label.pack(expand=True)
+
+# Create sidebar buttons and assign scan_emails to 'Scan Emails'
 for item in menu_items:
-    btn = tk.Button(sidebar, text=item[0], font=("Arial", 11), anchor="w",
-                    bg="white", fg="#333", relief="flat", padx=15, pady=10)
+    if item[0] == "📧  Scan Emails":
+        btn = tk.Button(sidebar, text=item[0], font=("Arial", 11), anchor="w",
+                        bg="white", fg="#333", relief="flat", padx=15, pady=10,
+                        command=scan_emails)
+    else:
+        btn = tk.Button(sidebar, text=item[0], font=("Arial", 11), anchor="w",
+                        bg="white", fg="#333", relief="flat", padx=15, pady=10)
     btn.pack(fill="x")
 
 # Bottom user profile section
