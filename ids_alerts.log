@@ -1,0 +1,5 @@
+2025-11-09 21:58:01,769 - WARNING - [HIGH] malware_signature - Malware signature detected: C&C Domain - malware.com
+2025-11-09 21:58:21,821 - WARNING - [HIGH] malware_signature - Malware signature detected: C&C Domain - malware.com
+2025-11-09 22:25:50,817 - WARNING - [HIGH] malware_signature - Malware signature detected: C&C Domain - malware.com
+2025-11-09 22:26:20,834 - WARNING - [HIGH] malware_signature - Malware signature detected: C&C Domain - malware.com
+2025-11-09 22:26:30,840 - WARNING - [HIGH] malware_signature - Malware signature detected: C&C Domain - malware.com
